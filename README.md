@@ -7,8 +7,7 @@ contract작성과
 사용처와 플랫폼 구조가 안정되면, 비거래형 내부 포인트 성격에서 거래가능한 가능성을 열어두었습니다.
   
 
-커뮤니티 기반 보상 플랫폼
-현제 컨트랙트들 설명, 테스트코드가 아직 배포가 않되었는데 무엇을 기반으로 테스트가 진행되나요
+
 
 
 
@@ -69,6 +68,13 @@ contract작성과
 - Hardhat 환경에서 자동화 테스트 포함
 - `test/tokenHive.test.ts` 등에서 업그레이드 시 상태 보존 검증
 - 보상 수령, 토큰 전송 등 주요 기능 유닛 테스트 포함 예정
+beforeEach: 각 테스트 전 AccessController, RewardPolicy, CommunityToken, RewardManager 등 모든 컨트랙트를 배포합니다.
+should allow admin to set and update Reward Manager: 관리자가 RewardManager를 설정하고 업데이트할 수 있는지 확인합니다.
+should allow RewardManager to mint tokens: RewardManager가 사용자에게 보상으로 토큰을 민팅할 수 있는지 테스트합니다.
+should not allow unauthorized users to mint tokens: 권한이 없는 사용자가 민팅을 시도할 때 오류가 발생하는지 확인합니다.
+should allow RewardPolicy admin to set new reward amount: RewardPolicy의 관리자가 보상 금액을 설정할 수 있는지 테스트합니다.
+should allow RewardManager to claim reward once: 사용자가 보상을 한 번만 클레임할 수 있는지 확인합니다.
+should not allow double claiming of reward: 사용자가 보상을 두 번 이상 클레임하지 못하도록 방지하는지 테스트합니다.
 
 ---
 
@@ -81,18 +87,6 @@ contract작성과
 
 ---
 
-[User]
-   |
-   | ▶ 활동
-   ▼
-[RewardManagerProxy] → [RewardManager (Logic)]
-          ▲
-          | (보상 기준 로직)
-[RewardPolicy.sol]
 
-[CommunityTokenProxy] → [CommunityToken]
-       ▲
-       | (mint, burn, admin 관리)
-[AccessController.sol]
 
 
